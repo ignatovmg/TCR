@@ -1,0 +1,87 @@
+package classes;
+
+import java.lang.*;
+import java.util.*;
+
+public class Table
+{
+	int AlphaNum;
+	int BetaNum;
+	
+	Vector AlphaArray;
+	Vector BetaArray;
+	
+	public void AlphaRead(String fileName)
+	{
+		BufferedReader file = new BufferedReader(new FileReader(fileName));
+		String line;
+		int i = 0;
+		while((line = file.readLine()) != null)
+		{
+			String[] list = line.split("|");
+			if ((Integer(list[3]) != -1) && 
+				(Integer(list[4]) != -1) &&
+				(Integer(list[5]) != -1) &&
+				(Integer(list[6]) != -1) &&
+				(Integer(list[7]) != -1) &&
+				(Integer(list[8]) != -1) &&
+				)
+			{
+				AlphaArray.addElement(new AlphaChain(list[1], list[2], 
+					{Integer(list[3]), Integer(list[4])},
+					{Integer(list[5]), Integer(list[6])},
+					{Integer(list[7]), Integer(list[8])},
+					list[9]);
+				i+=1;
+			}
+		}
+		AlphaNum = i;
+	}
+	
+	public void BetaRead(String fileName)
+	{
+		BufferedReader file = new BufferedReader(new FileReader(fileName));
+		String line;
+		int i = 0;
+		while((line = file.readLine()) != null)
+		{
+			String[] list = line.split("|");
+			if ((Integer(list[3]) != -1) && 
+				(Integer(list[4]) != -1) &&
+				(Integer(list[5]) != -1) &&
+				(Integer(list[6]) != -1) &&
+				(Integer(list[7]) != -1) &&
+				(Integer(list[8]) != -1) &&
+				(Integer(list[9]) != -1) &&
+				(Integer(list[10]) != -1) &&
+				)
+			{
+				BetaArray.addElement(new BetaChain(list[1], list[2], 
+					{Integer(list[3]), Integer(list[4])},
+					{Integer(list[5]), Integer(list[6])},
+					{Integer(list[7]), Integer(list[8])},
+					{Integer(list[9]), Integer(list[10])},
+					list[11]));
+				i+=1;
+			}
+		}
+		BetaNum = i;
+	}
+	
+	public void AlphaWrite(String fileName)
+	{
+		BufferedWriter file = new BufferedWriter(new FileWriter(fileName));
+		int i = 0;
+		for (i = 0; i < AlphaNum; i+=1)
+			AlphaArray[i].Write(file)
+	}
+	
+	public void BetaWrite(String fileName)
+	{
+		BufferedWriter file = new BufferedWriter(new FileWriter(fileName));
+		int i = 0;
+		for (i = 0; i < BetaNum; i+=1)
+			BetaArray[i].Write(file);
+	}
+}
+	

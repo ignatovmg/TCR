@@ -1,0 +1,4 @@
+JCC = javac
+JFLAGS = -g
+
+default: Average.class Convert.class Volume.class

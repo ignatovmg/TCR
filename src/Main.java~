@@ -1,0 +1,14 @@
+package main;
+
+import java.lang.*;
+import classes.*;
+
+public class Main
+{
+    public static void main(String[] args)
+    {
+    	AlphaChain a = new AlphaChain("12", "afas", {1, 2}, {1, 2}, {1, 2}, "ljk");
+    	BufferedWriter file = new BufferedWriter(new FileWriter("xyj.txt"));
+    	file.write("Asdf");
+    }
+}
