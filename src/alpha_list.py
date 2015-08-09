@@ -30,10 +30,10 @@ def writeIn(f, l):
 		f.write(i+"/")
 		
 
-align = open("generated/alignments.txt", "r")
-cdr = open("generated/cdr3.txt", "r")
-fasta = open("generated/filtered.fasta", "r")
-result = open("generated/list.txt", "w")
+align = open("generated/alpha_alignments.txt", "r")
+cdr = open("generated/alpha_cdr3.txt", "r")
+fasta = open("generated/alpha_filtered.fasta", "r")
+result = open("generated/alpha_list.txt", "w")
 alignlist = list(align)
 cdrlist = list(cdr)
 fastalist = list(fasta)

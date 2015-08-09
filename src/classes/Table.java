@@ -19,31 +19,34 @@ public class Table
 		AlphaArray = new Vector();
 		int i = 0;
 		int flag = 1;
-		int[] array = new int[6];
+		int[] array = new int[8];
 		
 		while((line = file.readLine()) != null)
 		{
 			String[] list = line.split("/");
-			if (list.length != 10)
+			if (list.length != 12)
 				flag = 0;
-			for (int n = 0; n < 6; n++)
-			{
-				array[n] = Integer.parseInt(list[3+n]);
-				if (array[n] == -1)
+			else 
+				for (int n = 0; n < 8; n++)
 				{
-					flag = 0;
-					break;
-				}
+					array[n] = Integer.parseInt(list[3+n]);
+					if (array[n] == -1)
+						if ((n != 2) && (n != 3) && (n != 6) && (n != 7))
+						{
+							flag = 0;
+							break;
+						}
 				
-			}
+				}
+		
 			
 			if (flag != 0)
 			{
 				AlphaArray.addElement(new AlphaChain(list[1], list[2], 
 					new int[]{array[0], array[1]},
-					new int[]{array[2], array[3]},
 					new int[]{array[4], array[5]},
-					list[9]));
+					new int[]{array[6], array[7]},
+					list[11]));
 				i+=1;
 			}
 			flag = 1;
@@ -63,17 +66,20 @@ public class Table
 		while((line = file.readLine()) != null)
 		{
 			String[] list = line.split("/");
+			
 			if (list.length != 12)
 				flag = 0;
-			for (int n = 0; n < 8; n++)
-			{	
-				array[n] = Integer.parseInt(list[3+n]);
-				if (array[n] == -1)
-				{
-					flag = 0;
-					break;
+			else
+				for (int n = 0; n < 8; n++)
+				{	
+					array[n] = Integer.parseInt(list[3+n]);
+					if (array[n] == -1)
+						if ((n != 6) && (n != 7))
+						{
+							flag = 0;
+							break;
+						}
 				}
-			}
 			
 			if (flag != 0)
 			{

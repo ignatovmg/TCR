@@ -9,7 +9,9 @@ public class Main
     public static void main(String[] args) throws IOException
     {
     	Table t = new Table();
-    	t.BetaRead("generated/list.txt");
-    	t.BetaWrite("generated/test.txt");
+    	t.AlphaRead("generated/alpha_list.txt");
+    	t.AlphaWrite("generated/alpha_test.txt");
+    	t.BetaRead("generated/beta_list.txt");
+    	t.BetaWrite("generated/beta_test.txt");
     }
 }
