@@ -24,29 +24,36 @@ public class Table
 		while((line = file.readLine()) != null)
 		{
 			String[] list = line.split("/");
-			if (list.length != 12)
+			int buf = 0;
+			
+			if (list.length != 16)
 				flag = 0;
-			else 
-				for (int n = 0; n < 8; n++)
-				{
-					array[n] = Integer.parseInt(list[3+n]);
-					if (array[n] == -1)
-						if ((n != 2) && (n != 3) && (n != 6) && (n != 7))
+			else
+				for (int n = 0; n < 12; n++)
+				{	
+					if ((n+1)%3 != 0)
+						array[n-buf] = Integer.parseInt(list[3+n]);
+					else
+						buf++;
+						
+					if (array[n-buf] == -1)
+						if ((n-buf != 2) && (n-buf != 3) && (n-buf != 6) && (n-buf != 7))
 						{
 							flag = 0;
 							break;
 						}
-				
 				}
 		
-			
 			if (flag != 0)
 			{
 				AlphaArray.addElement(new AlphaChain(list[1], list[2], 
 					new int[]{array[0], array[1]},
+					list[5],
 					new int[]{array[4], array[5]},
+					list[11],
 					new int[]{array[6], array[7]},
-					list[11]));
+					list[14],
+					list[15]));
 				i+=1;
 			}
 			flag = 1;
@@ -66,29 +73,38 @@ public class Table
 		while((line = file.readLine()) != null)
 		{
 			String[] list = line.split("/");
+			int buf = 0;
 			
-			if (list.length != 12)
+			if (list.length != 16)
 				flag = 0;
 			else
-				for (int n = 0; n < 8; n++)
+				for (int n = 0; n < 12; n++)
 				{	
-					array[n] = Integer.parseInt(list[3+n]);
-					if (array[n] == -1)
-						if ((n != 6) && (n != 7))
+					if ((n+1)%3 != 0)
+						array[n-buf] = Integer.parseInt(list[3+n]);
+					else
+						buf++;
+						
+					if (array[n-buf] == -1)
+						if ((n-buf != 2) && (n-buf != 3) && (n-buf != 6) && (n-buf != 7))
 						{
 							flag = 0;
 							break;
 						}
 				}
-			
+		
 			if (flag != 0)
 			{
 				BetaArray.addElement(new BetaChain(list[1], list[2], 
 					new int[]{array[0], array[1]},
+					list[5],
 					new int[]{array[2], array[3]},
+					list[8],
 					new int[]{array[4], array[5]},
+					list[11],
 					new int[]{array[6], array[7]},
-					list[11]));
+					list[14],
+					list[15]));
 				i++;
 			}
 			flag = 1;

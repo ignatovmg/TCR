@@ -9,7 +9,7 @@ def processRec(rec):
 		newscore = float(l[i][len(l[i])-1])
 		if (score <= newscore):
 			score = newscore
-			result = list([l[i][3], l[i][4]])
+			result = list([l[i][3], l[i][4], i])
 	return result
 		
 def processLine(string):
@@ -19,10 +19,15 @@ def processLine(string):
 		if (l[i] == ""):
 			result.append("-1")
 			result.append("-1")
+			result.append("-1")
 		else:
 			buf = processRec(l[i])
 			result.append(buf[0])
 			result.append(buf[1])
+			buf1 = l[i-4].split(",")
+			#print buf[2], buf1[buf[2]]
+			buf2 = buf1[buf[2]].split("(")
+			result.append(buf2[0])
 	return result
 	
 def writeIn(f, l):
