@@ -16,6 +16,7 @@ public class AlphaChain extends Chain
 		VRegName = Vname;
 		JRegName = Jname;
 		CRegName = Cname;
+		Antigen = "unknown";
 	}
 	
 	
@@ -29,7 +30,8 @@ public class AlphaChain extends Chain
 			"\nJRegName = "+JRegName+
 			"\nCReg = "+CReg[0]+"|"+CReg[1]+
 			"\nCRegName = "+CRegName+
-			"\nCDR3 = "+CDR3);
+			"\nCDR3 = "+CDR3+
+			"\nAntigen = "+Antigen);
 	}
 	
 	public void Show()
@@ -42,6 +44,7 @@ public class AlphaChain extends Chain
 			"\nJRegName = "+JRegName+
 			"\nCReg = "+CReg[0]+"|"+CReg[1]+
 			"\nCRegName = "+CRegName+
-			"\nCDR3 = "+CDR3);
+			"\nCDR3 = "+CDR3+
+			"\nAntigen = "+Antigen);
 	}
 }

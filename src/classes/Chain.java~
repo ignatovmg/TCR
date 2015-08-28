@@ -5,14 +5,18 @@ import java.lang.*;
 public class Chain
 {
 	String Id;
+	int Number;
+	String ChainFlag;
 	String Seq;
 	int[] VReg;
 	String VRegName;
 	int[] JReg;
 	String JRegName;
-	int[] CReg;
+	int[] CReg;	// Optional
 	String CRegName;
 	String CDR3;
+	
+	String Antigen;	// Optional
 	
 	public String getV()
 	{

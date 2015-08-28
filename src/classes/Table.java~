@@ -9,14 +9,189 @@ public class Table
 	int AlphaNum;
 	int BetaNum;
 	
-	Vector AlphaArray;
-	Vector BetaArray;
+	public Vector<AlphaChain> AlphaArray;
+	public Vector<BetaChain> BetaArray;
+	
+	int[][] AlphaGraph;
+	int[][] BetaGraph;
+	
+	Vector Clasters;
+	
+	public void GraphFill()
+	{
+		if (AlphaArray.isEmpty())
+		{
+			if (BetaArray.isEmpty())
+			{
+				System.out.println("Table is empty!");
+				System.exit(0);
+			}
+			else
+			{
+				BetaGraph = new int[BetaNum][BetaNum];
+				this.BetaGraphFill();
+			}
+		}
+		else
+		{
+			if (BetaArray.isEmpty())
+			{
+				AlphaGraph = new int[AlphaNum][AlphaNum];
+				this.AlphaGraphFill();
+			}
+
+			BetaGraph = new int[BetaNum][BetaNum];
+			this.BetaGraphFill();
+			AlphaGraph = new int[AlphaNum][AlphaNum];
+			this.AlphaGraphFill();
+		}
+	}
+	
+	public void AlphaGraphFill()
+	{
+		for (int i = 0; i < AlphaNum; i++)
+		{
+			for (int j = i; j < AlphaNum; j++)
+			{
+				if (AlphaArray.get(i).Antigen.equals(AlphaArray.get(j).Antigen))
+					AlphaGraph[i][j] = 1;
+				else
+					AlphaGraph[i][j] = 0;
+			}
+		}
+	}
+	
+	public void BetaGraphFill()
+	{
+		for (int i = 0; i < BetaNum; i++)
+		{
+			for (int j = i; j < BetaNum; j++)
+			{
+				if (BetaArray.get(i).Antigen.equals(BetaArray.get(j).Antigen))
+					BetaGraph[i][j] = 1;
+				else
+					BetaGraph[i][j] = 0;
+			}
+		}
+	}
+	
+	public void ClasterObvious()
+	{
+		Clasters = new Vector();
+		if (AlphaArray != null)
+			if (!AlphaArray.isEmpty())
+			{
+				Vector<AlphaChain> AlphaCopy = (Vector<AlphaChain>)AlphaArray.clone();
+				for (int i = 0; i < AlphaCopy.size();)
+				{
+					Vector bufer = new Vector();
+					for (int j = i + 1; j < AlphaCopy.size(); j++)
+					{
+						if (AlphaCopy.get(i).Antigen.equals(AlphaCopy.get(j).Antigen))
+						{
+							bufer.addElement(AlphaCopy.get(j).Number);
+							AlphaCopy.remove(j);
+						}
+					}
+					AlphaCopy.remove(i);
+					Clasters.addElement(bufer);
+				}
+			}
+			
+		if (BetaArray != null)
+			if (!BetaArray.isEmpty())
+			{
+				Vector<BetaChain> BetaCopy = (Vector<BetaChain>)BetaArray.clone();
+				for (int i = 0; i < BetaCopy.size();)
+				{
+					Vector bufer = new Vector();
+					for (int j = i + 1; j < BetaCopy.size(); j++)
+					{
+						if (BetaCopy.get(i).Antigen.equals(BetaCopy.get(j).Antigen))
+						{
+							bufer.addElement(BetaCopy.get(j).Number);
+							BetaCopy.remove(j);
+							//System.out.println(BetaCopy.size()+"| j = "+j+"| i= "+i);
+						}
+					}
+					BetaCopy.remove(i);
+					Clasters.addElement(bufer);
+				}
+			}
+	}
+	
+//===================================================================================
+//================= Routine functions ===============================================
+//===================================================================================
+
+	public void ReadSampleTable() throws IOException
+	{
+		BufferedReader file = new BufferedReader(new FileReader("data/vdjdb.txt"));
+		String line;
+		file.readLine();
+		int i = 0;
+		int bflag = 0;
+		int aflag = 0;
+		while((line = file.readLine()) != null)
+		{
+			String[] list = line.split("\t");
+			if (list[3].equals("TRB"))
+			{
+				if (bflag == 0)
+				{
+					BetaArray = new Vector<BetaChain>();
+					bflag = 1;
+				}
+				if (!list[8].equals("."))
+				{
+					BetaArray.addElement(new BetaChain(new String("."), 
+						new String("."), 
+						new int[]{-2, -2},
+						list[1],
+						new int[]{-2, -2},
+						list[2],
+						new int[]{-2, -2},
+						new String("."),
+						new int[]{-2, -2},
+						new String("."),
+						list[0]));
+					BetaArray.get(i).Number = i;
+					BetaArray.get(i).Antigen = list[8];
+					i++;
+				}
+			}
+			else
+				if (list[3].equals("TRA"))
+				{
+					if (aflag == 0)
+					{
+						AlphaArray = new Vector<AlphaChain>();
+						aflag = 1;
+					}
+					if (!list[8].equals("."))
+					{
+						AlphaArray.addElement(new AlphaChain(new String("."), 
+							new String("."), 
+							new int[]{-2, -2},
+							list[1],
+							new int[]{-2, -2},
+							list[2],
+							new int[]{-2, -2},
+							new String("."),
+							list[0]));
+						AlphaArray.get(i).Number = i;
+						AlphaArray.get(i).Antigen = list[8];
+						i++;
+					}
+				}
+		}
+	}
 	
 	public void AlphaRead(String fileName) throws IOException
 	{
 		BufferedReader file = new BufferedReader(new FileReader(fileName));
 		String line;
-		AlphaArray = new Vector();
+		AlphaArray = new Vector<AlphaChain>();
 		int i = 0;
 		int flag = 1;
 		int[] array = new int[8];
@@ -54,7 +229,8 @@ public class Table
 					new int[]{array[6], array[7]},
 					list[14],
 					list[15]));
-				i+=1;
+				AlphaArray.get(i).Number = i;
+				i++;
 			}
 			flag = 1;
 		}
@@ -66,7 +242,7 @@ public class Table
 	{
 		BufferedReader file = new BufferedReader(new FileReader(fileName));
 		String line;
-		BetaArray = new Vector();
+		BetaArray = new Vector<BetaChain>();
 		int i = 0;
 		int flag = 1;
 		int[] array = new int[8];
@@ -105,6 +281,7 @@ public class Table
 					new int[]{array[6], array[7]},
 					list[14],
 					list[15]));
+				BetaArray.get(i).Number = i;
 				i++;
 			}
 			flag = 1;
@@ -120,7 +297,7 @@ public class Table
 		AlphaChain buf;
 		for (i = 0; i < AlphaNum; i++)
 		{
-			buf = (AlphaChain)AlphaArray.get(i);
+			buf = AlphaArray.get(i);
 			buf.Write(file);
 			file.write("\n");
 		}
@@ -134,11 +311,11 @@ public class Table
 		BetaChain buf;
 		for (i = 0; i < BetaNum; i++)
 		{
-			buf = (BetaChain)BetaArray.get(i);
+			buf = BetaArray.get(i);
 			buf.Write(file);
 			file.write("\n");
 		}
 		file.close();
-	}
+	}	
 }
 	

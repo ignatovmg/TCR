@@ -21,6 +21,7 @@ public class BetaChain extends Chain
 		JRegName = Jname;
 		CRegName = Cname;
 		DRegName = Dname;
+		Antigen = "unknown";
 	}
 	
 	public void Write(BufferedWriter file) throws IOException
@@ -35,7 +36,8 @@ public class BetaChain extends Chain
 			"\nJRegName = "+JRegName+
 			"\nCReg = "+CReg[0]+"|"+CReg[1]+
 			"\nCRegName = "+CRegName+
-			"\nCDR3 = "+CDR3);
+			"\nCDR3 = "+CDR3+
+			"\nAntigen = "+Antigen);
 	}
 	
 	public void Show()
@@ -50,7 +52,8 @@ public class BetaChain extends Chain
 			"\nJRegName = "+JRegName+
 			"\nCReg = "+CReg[0]+"|"+CReg[1]+
 			"\nCRegName = "+CRegName+
-			"\nCDR3 = "+CDR3);
+			"\nCDR3 = "+CDR3+
+			"\nAntigen = "+Antigen);
 	}
 	
 	public String getD()
