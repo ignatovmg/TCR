@@ -21,8 +21,24 @@ public class Chain
 	String DRegName;// Optional
 	
 	String CDR3;
-	
 	String Antigen;	// Optional
+	
+	Chain()
+	{
+		ChainFlag 	= new String();
+		Id 		= new String();
+		Seq 		= new String();
+		VReg 		= new int[2];
+		VRegName 	= new String();
+		JReg 		= new int[2];
+		JRegName 	= new String();
+		CReg 		= new int[2];
+		CRegName 	= new String();
+		DReg 		= new int[2];
+		DRegName 	= new String();
+		CDR3 		= new String();
+		Antigen 	= new String();
+	}
 	
 	Chain(String CFlag, String i, String S, int[] V, String Vname, int[] D,  String Dname, int[] J,  String Jname, int[] C,  String Cname, String CDR)
 	{
@@ -73,6 +89,28 @@ public class Chain
 			"\nCRegName = "+CRegName+
 			"\nCDR3 = "+CDR3+
 			"\nAntigen = "+Antigen);
+	}
+
+	public void Copy(Chain target)
+	{
+		if (target != null)
+		{
+			target = new Chain();
+		}
+		target.ChainFlag 	= new String(this.ChainFlag);
+		target.Id 		= new String(this.Id);
+		target.Number 		= this.Number;
+		target.Seq 		= new String(this.Seq);
+		target.VReg 		= (int[])this.VReg.clone();
+		target.VRegName 	= new String(this.VRegName);
+		target.JReg 		= (int[])this.JReg.clone();
+		target.JRegName 	= new String(this.JRegName);
+		target.CReg 		= (int[])this.CReg.clone();
+		target.CRegName 	= new String(this.CRegName);
+		target.DReg 		= (int[])this.DReg.clone();
+		target.DRegName 	= new String(this.DRegName);
+		target.CDR3 		= new String(this.CDR3);
+		target.Antigen 		= new String(this.Antigen);
 	}
 	
 	public String getV()

@@ -15,7 +15,7 @@ public class Table
 	int[][] AlphaGraph;
 	int[][] BetaGraph;
 	
-	Vector Clasters;
+	Vector<Claster> Clasters;
 	
 	public void GraphFill()
 	{
@@ -77,19 +77,21 @@ public class Table
 	
 	public void ClasterObvious()
 	{
-		Clasters = new Vector();
+		Clasters = new Vector<Claster>();
+		
 		if (AlphaArray != null)
 			if (!AlphaArray.isEmpty())
 			{
 				Vector<Chain> AlphaCopy = (Vector<Chain>)AlphaArray.clone();
+				Claster bufer = new Claster();
+				
 				for (int i = 0; i < AlphaCopy.size();)
 				{
-					Vector bufer = new Vector();
 					for (int j = i + 1; j < AlphaCopy.size(); j++)
 					{
 						if (AlphaCopy.get(i).Antigen.equals(AlphaCopy.get(j).Antigen))
 						{
-							bufer.addElement(AlphaCopy.get(j).Number);
+							bufer.AddChain(AlphaCopy.get(j));
 							AlphaCopy.remove(j);
 						}
 					}
@@ -102,14 +104,15 @@ public class Table
 			if (!BetaArray.isEmpty())
 			{
 				Vector<Chain> BetaCopy = (Vector<Chain>)BetaArray.clone();
+				Claster bufer = new Claster();
+				
 				for (int i = 0; i < BetaCopy.size();)
 				{
-					Vector bufer = new Vector();
 					for (int j = i + 1; j < BetaCopy.size(); j++)
 					{
 						if (BetaCopy.get(i).Antigen.equals(BetaCopy.get(j).Antigen))
 						{
-							bufer.addElement(BetaCopy.get(j).Number);
+							bufer.AddChain(BetaCopy.get(j));
 							BetaCopy.remove(j);
 							//System.out.println(BetaCopy.size()+"| j = "+j+"| i= "+i);
 						}
