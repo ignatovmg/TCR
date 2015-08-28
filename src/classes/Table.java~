@@ -9,8 +9,8 @@ public class Table
 	int AlphaNum;
 	int BetaNum;
 	
-	public Vector<AlphaChain> AlphaArray;
-	public Vector<BetaChain> BetaArray;
+	public Vector<Chain> AlphaArray;
+	public Vector<Chain> BetaArray;
 	
 	int[][] AlphaGraph;
 	int[][] BetaGraph;
@@ -81,7 +81,7 @@ public class Table
 		if (AlphaArray != null)
 			if (!AlphaArray.isEmpty())
 			{
-				Vector<AlphaChain> AlphaCopy = (Vector<AlphaChain>)AlphaArray.clone();
+				Vector<Chain> AlphaCopy = (Vector<Chain>)AlphaArray.clone();
 				for (int i = 0; i < AlphaCopy.size();)
 				{
 					Vector bufer = new Vector();
@@ -101,7 +101,7 @@ public class Table
 		if (BetaArray != null)
 			if (!BetaArray.isEmpty())
 			{
-				Vector<BetaChain> BetaCopy = (Vector<BetaChain>)BetaArray.clone();
+				Vector<Chain> BetaCopy = (Vector<Chain>)BetaArray.clone();
 				for (int i = 0; i < BetaCopy.size();)
 				{
 					Vector bufer = new Vector();
@@ -139,12 +139,13 @@ public class Table
 			{
 				if (bflag == 0)
 				{
-					BetaArray = new Vector<BetaChain>();
+					BetaArray = new Vector<Chain>();
 					bflag = 1;
 				}
 				if (!list[8].equals("."))
 				{
-					BetaArray.addElement(new BetaChain(new String("."), 
+					BetaArray.addElement(new Chain(new String("TRB"), 
+						new String("."), 
 						new String("."), 
 						new int[]{-2, -2},
 						list[1],
@@ -165,17 +166,20 @@ public class Table
 				{
 					if (aflag == 0)
 					{
-						AlphaArray = new Vector<AlphaChain>();
+						AlphaArray = new Vector<Chain>();
 						aflag = 1;
 					}
 					if (!list[8].equals("."))
 					{
-						AlphaArray.addElement(new AlphaChain(new String("."), 
+						AlphaArray.addElement(new Chain(new String("TRA"), 
+							new String("."), 
 							new String("."), 
 							new int[]{-2, -2},
 							list[1],
 							new int[]{-2, -2},
 							list[2],
+							new int[]{-2, -2},
+							new String("."),
 							new int[]{-2, -2},
 							new String("."),
 							list[0]));
@@ -191,7 +195,7 @@ public class Table
 	{
 		BufferedReader file = new BufferedReader(new FileReader(fileName));
 		String line;
-		AlphaArray = new Vector<AlphaChain>();
+		AlphaArray = new Vector<Chain>();
 		int i = 0;
 		int flag = 1;
 		int[] array = new int[8];
@@ -221,13 +225,17 @@ public class Table
 		
 			if (flag != 0)
 			{
-				AlphaArray.addElement(new AlphaChain(list[1], list[2], 
+				AlphaArray.addElement(new Chain(new String("TRA"), 
+					list[1], 
+					list[2], 
 					new int[]{array[0], array[1]},
 					list[5],
 					new int[]{array[4], array[5]},
 					list[11],
 					new int[]{array[6], array[7]},
 					list[14],
+					new int[]{-2, -2},
+					new String("."),
 					list[15]));
 				AlphaArray.get(i).Number = i;
 				i++;
@@ -242,7 +250,7 @@ public class Table
 	{
 		BufferedReader file = new BufferedReader(new FileReader(fileName));
 		String line;
-		BetaArray = new Vector<BetaChain>();
+		BetaArray = new Vector<Chain>();
 		int i = 0;
 		int flag = 1;
 		int[] array = new int[8];
@@ -271,7 +279,9 @@ public class Table
 		
 			if (flag != 0)
 			{
-				BetaArray.addElement(new BetaChain(list[1], list[2], 
+				BetaArray.addElement(new Chain(new String("TRB"), 
+					list[1], 
+					list[2], 
 					new int[]{array[0], array[1]},
 					list[5],
 					new int[]{array[2], array[3]},
@@ -294,7 +304,7 @@ public class Table
 	{
 		BufferedWriter file = new BufferedWriter(new FileWriter(fileName));
 		int i = 0;
-		AlphaChain buf;
+		Chain buf;
 		for (i = 0; i < AlphaNum; i++)
 		{
 			buf = AlphaArray.get(i);
@@ -308,7 +318,7 @@ public class Table
 	{
 		BufferedWriter file = new BufferedWriter(new FileWriter(fileName));
 		int i = 0;
-		BetaChain buf;
+		Chain buf;
 		for (i = 0; i < BetaNum; i++)
 		{
 			buf = BetaArray.get(i);
