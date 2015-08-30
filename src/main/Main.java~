@@ -16,5 +16,7 @@ public class Main
     	t.ReadSampleTable();
     	t.BetaArray.get(3).Show();
     	t.ClasterObvious();
+    	
+    	System.out.println("\n\nDistance: "+Utilities.EditorialDistance("fabckf", "fahbcf"));
     }
 }
