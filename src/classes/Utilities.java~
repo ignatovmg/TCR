@@ -48,7 +48,7 @@ public class Utilities
 		return cols[index2][len_a];
 	}
 	
-	public int Min3(int a, int b, int c)
+	public static int Min3(int a, int b, int c)
 	{
 		return Math.min(c, Math.min(a, b));
 	}

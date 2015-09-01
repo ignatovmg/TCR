@@ -1,0 +1,41 @@
+import java.awt.*;
+import java.applet.*;
+import java.awt.image.*;
+//------------------------------------------------------------
+// Создание класса MyForthImage
+public  class  MyForthImage  extends  Applet{
+   // Обьявление обьекта класса Image
+   Image img;
+   // Обьявление и определение значение фильтра
+   int filter = 255;
+   // Ширина изображения
+   int XMax   = 256;
+   // Высота изображения
+   int YMax   = 256;
+   // Начальные действия
+   public void init() {
+      // Определение массива пикселей
+      int pixels[] = new int [XMax * YMax];
+      // Переменная для массива пикселей
+      int i = 0;
+      // Заполнение массива пикселей
+      for (int y = 0; y < YMax; y++) {
+         for (int x = 0; x < XMax; x++) {
+            int r = (x^y)&0xff;
+            int g = (x*2^y*2)&0xff;
+            int b = (x*4^y*4)&0xff;
+            // Построение пикселя по принципу AARRGGBB
+            pixels[i++] = (filter << 24 ) |
+                          (r      << 16 ) |
+                          (g      <<  8 ) | b;
+         }
+      }
+      // Создание изображения
+      img = createImage(new
+            MemoryImageSource(XMax, YMax, pixels, 0, XMax));
+   }
+   // Вывод изображения в окно апплета
+   public void paint(Graphics  gr) {
+      gr.drawImage(img, 0, 0, this);
+   }
+} 

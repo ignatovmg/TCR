@@ -12,68 +12,10 @@ public class Table
 	public Vector<Chain> AlphaArray;
 	public Vector<Chain> BetaArray;
 	
-	int[][] AlphaGraph;
-	int[][] BetaGraph;
+	public Graph AlphaGraph;
+	public Graph BetaGraph;
 	
-	Vector<Claster> Clasters;
-	
-	public void GraphFill()
-	{
-		if (AlphaArray.isEmpty())
-		{
-			if (BetaArray.isEmpty())
-			{
-				System.out.println("Table is empty!");
-				System.exit(0);
-			}
-			else
-			{
-				BetaGraph = new int[BetaNum][BetaNum];
-				this.BetaGraphFill();
-			}
-		}
-		else
-		{
-			if (BetaArray.isEmpty())
-			{
-				AlphaGraph = new int[AlphaNum][AlphaNum];
-				this.AlphaGraphFill();
-			}
-
-			BetaGraph = new int[BetaNum][BetaNum];
-			this.BetaGraphFill();
-			AlphaGraph = new int[AlphaNum][AlphaNum];
-			this.AlphaGraphFill();
-		}
-	}
-	
-	public void AlphaGraphFill()
-	{
-		for (int i = 0; i < AlphaNum; i++)
-		{
-			for (int j = i; j < AlphaNum; j++)
-			{
-				if (AlphaArray.get(i).Antigen.equals(AlphaArray.get(j).Antigen))
-					AlphaGraph[i][j] = 1;
-				else
-					AlphaGraph[i][j] = 0;
-			}
-		}
-	}
-	
-	public void BetaGraphFill()
-	{
-		for (int i = 0; i < BetaNum; i++)
-		{
-			for (int j = i; j < BetaNum; j++)
-			{
-				if (BetaArray.get(i).Antigen.equals(BetaArray.get(j).Antigen))
-					BetaGraph[i][j] = 1;
-				else
-					BetaGraph[i][j] = 0;
-			}
-		}
-	}
+	public Vector<Claster> Clasters;
 	
 	public void ClasterObvious()
 	{
@@ -137,7 +79,7 @@ public class Table
 		int i = 0;
 		int bflag = 0;
 		int aflag = 0;
-		while((line = file.readLine()) != null)
+		while((line = file.readLine()) != null && i < 170) /////// !!!!!!!!!!!!!!!!!!
 		{
 			String[] list = line.split("\t");
 			if (list[3].equals("TRB"))
