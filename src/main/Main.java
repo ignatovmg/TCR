@@ -14,6 +14,7 @@ public class Main
     	//t.BetaRead("generated/beta_list.txt");
     	//t.BetaWrite("generated/beta_test.txt");
     	t.ReadSampleTable();
+    	Utilities.SortByAntigen(t.BetaArray);
     	//t.BetaArray.get(3).Show();
     	//t.ClasterObvious();
     	t.BetaGraph = new Graph();

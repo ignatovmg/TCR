@@ -1,0 +1,6 @@
+package classes;
+
+public Variable
+{
+	public static EditDistThes = 0.5;
+}

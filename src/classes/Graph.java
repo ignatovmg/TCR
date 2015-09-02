@@ -67,8 +67,8 @@ public class Graph
 				String CDR3_i = Array.get(i).CDR3;
 				String CDR3_j = Array.get(j).CDR3;
 				double dist = (double)Utilities.EditorialDistance(CDR3_i, CDR3_j);
-				double thres = 0.6;
-				if (dist/(double)CDR3_i.length() < thres && dist/(double)CDR3_j.length() < thres)
+				double thres = Variable.EditDistThes;
+				if ((dist/(double)CDR3_i.length() < thres) || (dist/(double)CDR3_j.length() < thres))
 				{
 					Data[i][j] = 1;
 					Data[j][i] = 1;

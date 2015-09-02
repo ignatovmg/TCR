@@ -6,6 +6,22 @@ import java.util.*;
 
 public class Utilities
 {
+	public static void SortByAntigen(Vector<Chain> array)
+	{
+		MistakeEmptyCheck(array, "SortByAntigen");
+		int len = array.size();
+		for (int i = 0; i < len; i++)
+			for (int j = i+1; j < len; j++)
+			{
+				if (array.get(i).Antigen.equals(array.get(j).Antigen))
+				{
+					array.insertElementAt(array.get(j), i+1);
+					array.remove(j);
+					i++;
+				}
+			}
+	}
+	
 	public static int EditorialDistance(String a, String b)
 	{
 		int len_a = a.length();
@@ -51,5 +67,19 @@ public class Utilities
 	public static int Min3(int a, int b, int c)
 	{
 		return Math.min(c, Math.min(a, b));
+	}
+	
+	public static void MistakeEmptyCheck(Vector array, String s)
+	{
+		if (array == null)
+		{
+			System.out.println(s+": Array is NULL!");
+			System.exit(0);
+		}
+		if (array.isEmpty())
+		{
+			System.out.println(s+": Array is Empty!");
+			System.exit(0);
+		}
 	}
 }
