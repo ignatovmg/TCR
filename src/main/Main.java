@@ -3,6 +3,7 @@ package main;
 import java.lang.*;
 import classes.*;
 import java.io.*;
+import java.util.*;
 
 public class Main
 {
@@ -19,9 +20,13 @@ public class Main
     	//t.ClasterObvious();
     	t.BetaGraph = new Graph();
     	t.BetaGraph.GraphFill(t.BetaArray, 0);
-    	t.BetaGraph.Print("generated/beta_graph0.txt");
+    	t.BetaGraph.Print("generated/results/beta_graph_real.txt");
     	t.BetaGraph.GraphFill(t.BetaArray, 1);
-    	t.BetaGraph.Print("generated/beta_graph1.txt");
+
+	Formatter fmt = new Formatter();
+	fmt.format("%.2f", Variable.EditDistThesh);
+	String str = fmt.toString();
+    	t.BetaGraph.Print("generated/results/beta_graph_thesh_=_"+str+".txt");
     	//System.out.println("\n\nDistance: "+Utilities.EditorialDistance("fabckf", "fahbcf"));
     	
     	

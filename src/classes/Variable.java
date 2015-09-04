@@ -2,5 +2,5 @@ package classes;
 
 public class Variable
 {
-	public static double EditDistThes = 0.65;
+	public static double EditDistThesh = 0.80;
 }
