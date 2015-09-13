@@ -24,6 +24,9 @@ public class Graph
 					case 1:
 						this.GraphFill1(Array);
 						break;
+					case 2: 
+						this.HeatMap(Array);
+						break;
 				}
 			}
 			else
@@ -82,7 +85,23 @@ public class Graph
 		}
 	}
 	
-	public void Print(String fileName) throws IOException
+	private void HeatMap(Vector<Chain> Array)
+	{
+		for (int i = 0; i < Size; i++)
+		{
+			for (int j = i; j < Size; j++)
+			{
+				String CDR3_i = Array.get(i).CDR3;
+				String CDR3_j = Array.get(j).CDR3;
+				int dist = Utilities.EditorialDistance(CDR3_i, CDR3_j);
+				int maxlen = Math.max(CDR3_i.length(), CDR3_j.length());
+				Data[i][j] = (1000*(maxlen-dist))/maxlen;
+				Data[j][i] = Data[i][j];
+			}
+		}
+	}
+	
+	public void PrintPseudoGraph(String fileName) throws IOException
 	{
 		BufferedWriter file = new BufferedWriter(new FileWriter(fileName));
 		System.out.println("Graph size = "+Size);
@@ -102,6 +121,23 @@ public class Graph
 							System.out.println("Incorrect symbol in Data!");
 							System.exit(0);
 						}
+			file.write("\n");
+		}
+		file.close();
+	}
+	
+	public void PrintHeatMap(String fileName) throws IOException
+	{
+		BufferedWriter file = new BufferedWriter(new FileWriter(fileName));
+		System.out.println("Graph size = "+Size);
+		for (int i = 0; i < Size; i++)
+		{
+			for (int j = 0; j < Size; j++)
+			{
+				file.write(Integer.toString(Data[i][j]));
+				if (j != Size-1)
+					file.write(",");
+			}
 			file.write("\n");
 		}
 		file.close();

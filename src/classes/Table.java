@@ -79,7 +79,7 @@ public class Table
 		int i = 0;
 		int bflag = 0;
 		int aflag = 0;
-		while((line = file.readLine()) != null && i < 136) /////// !!!!!!!!!!!!!!!!!!
+		while((line = file.readLine()) != null) /////// !!!!!!!!!!!!!!!!!!
 		{
 			String[] list = line.split("\t");
 			if (list[3].equals("TRB"))
