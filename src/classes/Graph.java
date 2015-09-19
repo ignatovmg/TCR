@@ -49,13 +49,13 @@ public class Graph
 			{
 				if (Array.get(i).Antigen.equals(Array.get(j).Antigen))
 				{
-					Data[i][j] = 1;
-					Data[j][i] = 1;
+					Data[i][j] = 0;
+					Data[j][i] = 0;
 				}
 				else
 				{
-					Data[i][j] = 0;
-					Data[j][i] = 0;
+					Data[i][j] = 1;
+					Data[j][i] = 1;
 				}
 			}
 		}
@@ -95,7 +95,7 @@ public class Graph
 				String CDR3_j = Array.get(j).CDR3;
 				int dist = Utilities.EditorialDistance(CDR3_i, CDR3_j);
 				int maxlen = Math.max(CDR3_i.length(), CDR3_j.length());
-				Data[i][j] = (1000*(maxlen-dist))/maxlen;
+				Data[i][j] = (1000*(dist))/maxlen;
 				Data[j][i] = Data[i][j];
 			}
 		}
@@ -136,7 +136,7 @@ public class Graph
 			{
 				file.write(Integer.toString(Data[i][j]));
 				if (j != Size-1)
-					file.write(",");
+					file.write(" ");
 			}
 			file.write("\n");
 		}

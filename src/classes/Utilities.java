@@ -13,7 +13,8 @@ public class Utilities
 		for (int i = 0; i < len; i++)
 			for (int j = i+1; j < len; j++)
 			{
-				if (array.get(i).Antigen.equals(array.get(j).Antigen))
+				String antigen = array.get(i).Antigen;
+				if (antigen.equals(array.get(j).Antigen))
 				{
 					array.insertElementAt(array.get(j), i+1);
 					array.remove(j);
