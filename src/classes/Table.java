@@ -6,8 +6,8 @@ import java.io.*;
 
 public class Table
 {
-	int AlphaNum;
-	int BetaNum;
+	public int AlphaNum;
+	public int BetaNum;
 	
 	public Vector<Chain> AlphaArray;
 	public Vector<Chain> BetaArray;
@@ -79,6 +79,8 @@ public class Table
 		int i = 0;
 		int bflag = 0;
 		int aflag = 0;
+		BetaNum = 0;
+		AlphaNum = 0;
 		while((line = file.readLine()) != null) /////// !!!!!!!!!!!!!!!!!!
 		{
 			String[] list = line.split("\t");
@@ -105,6 +107,7 @@ public class Table
 						list[0]));
 					BetaArray.get(i).Number = i;
 					BetaArray.get(i).Antigen = list[8];
+					BetaNum++;
 					i++;
 				}
 			}
@@ -132,6 +135,7 @@ public class Table
 							list[0]));
 						AlphaArray.get(i).Number = i;
 						AlphaArray.get(i).Antigen = list[8];
+						AlphaNum++;
 						i++;
 					}
 				}

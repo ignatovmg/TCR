@@ -95,7 +95,8 @@ public class Graph
 				String CDR3_j = Array.get(j).CDR3;
 				int dist = Utilities.EditorialDistance(CDR3_i, CDR3_j);
 				int maxlen = Math.max(CDR3_i.length(), CDR3_j.length());
-				Data[i][j] = (1000*(dist))/maxlen;
+				int minlen = Math.min(CDR3_i.length(), CDR3_j.length());
+				Data[i][j] = (int)(1000.0*((double)dist/maxlen+(double)dist/minlen));
 				Data[j][i] = Data[i][j];
 			}
 		}

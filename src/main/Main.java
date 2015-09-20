@@ -13,8 +13,9 @@ public class Main
     	//t.AlphaRead("generated/alpha_list.txt");
     	//t.AlphaWrite("generated/alpha_test.txt");
     	//t.BetaRead("generated/beta_list.txt");
-    	//t.BetaWrite("generated/beta_test.txt");
     	t.ReadSampleTable();
+    	//t.BetaWrite("generated/beta_test1.txt");
+    	//System.out.println(t.BetaNum);
     	Utilities.SortByAntigen(t.BetaArray);
     	t.BetaGraph = new Graph();
     	t.BetaGraph.GraphFill(t.BetaArray, 0);
