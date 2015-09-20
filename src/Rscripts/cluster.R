@@ -1,5 +1,10 @@
+#!/bin/Rscript
+
 clnum <- 8
 
+args <- commandArgs(TRUE)
+clnum <- ifelse(!is.na(args[1]), as.numeric(args[1]), clnum) 
+	
 dpart <- function(p1,p2)
 {
 	tt <- table(p1,p2)
@@ -18,28 +23,33 @@ mat1 <- as.matrix(read.table("generated/results/beta_graph_real.txt", header=F))
 dist1 <- as.dist(mat1)
 fit1 <- hclust(dist1)
 group1 <- cutree(fit1, clnum)
-plot(as.dendrogram(fit1), main="Real distribution dendrogramm", leaflab="none")
+dend1 <- as.dendrogram(fit1)
+plot(as.dendrogram(fit1), main="Real distribution dendrogram", leaflab="none")
 rect.hclust(fit1, k=clnum)
 
 mat2 <- as.matrix(read.table("generated/results/beta_graph_heat.txt", header=F))
 dist2 <- as.dist(mat2)
 fit2 <- hclust(dist2)
 group2 <- cutree(fit2, clnum)
-plot(as.dendrogram(fit2), main="Teoretical distribution dendrogramm", leaflab="none")
+plot(as.dendrogram(fit2), main="Teoretical distribution dendrogram", leaflab="none")
 rect.hclust(fit2, k=clnum)
 
 library(gplots)
-heatmap.2(mat1, main="Real clutering heatmap", dendrogram='none', trace='none')
-heatmap.2(mat2, main="Teoretical clutering heatmap", dendrogram='none', trace='none')
+heatmap.2(mat1, main="Real clutering heatmap", dendrogram='none', trace='none', Rowv=FALSE, Colv=FALSE)
+heatmap.2(mat2, main="Teoretical clutering heatmap", dendrogram='none', trace='none', Rowv=FALSE, Colv=FALSE)
 
-plot(group1, main="Real clutering plot")
-plot(group2, main="Teoretical clutering plot")
-
+plot(group1, main="Real clutering plot", xlab="Element number", ylab="Cluster number")
+plot(group2, main="Teoretical clutering plot", xlab="Element number", ylab="Cluster number")
 
 library(fpc)
+sink("generated/results/clustering_log.txt", append=FALSE, split=FALSE)
+sprintf("Corrected RAND:")
 cluster.stats(dist1, group1, group2)$corrected.rand
+sprintf("Statictics for real clustering:")
 cluster.stats(dist1, group1)
+sprintf("Statictics for teoretical clustering:")
 cluster.stats(dist2, group2)
+sink()
 
 
 
@@ -61,20 +71,22 @@ plot(ks, WSS, type="b", main="Corrected RAND index for histogram clustering", xl
 
 
 
-
-n <- 8
-mydist <- rep(0,n)
-for (i in 2:n)
+if (clnum <= 8)
 {
-  mydist[i] <- dpart(kmeans(dist1, centers=i, nstart=10)$cluster, kmeans(dist2, centers=i, nstart=10)$cluster)
-}
-plot(mydist, type='b', main="Correlation between compability of real data and \nteoretical custering and clusters number\n using kmeans clustering", xlab="Number of clusters", ylab="Compability", col="blue")
+	n <- clnum
+	mydist <- rep(0,n)
+	for (i in 2:n)
+	{
+	  mydist[i] <- dpart(kmeans(dist1, centers=i, nstart=10)$cluster, kmeans(dist2, centers=i, nstart=10)$cluster)
+	}
+	plot(mydist, type='b', main="Correlation between compability of real data and \nteoretical custering and clusters number\n using kmeans clustering", xlab="Number of clusters", ylab="Compability", col="blue")
 
-ks <- 2:8
-WSS <- sapply(ks, FUN=function(k) {
-  cluster.stats(dist2, kmeans(dist1, centers=k, nstart=10)$cluster, kmeans(dist2, centers=k, nstart=10)$cluster)$corrected.rand
-  
-})
-plot(ks, WSS, type="b", main="Corrected RAND index for kmeans clustering", xlab="Number of clusters", ylab="Index")
+	ks <- 2:clnum
+	WSS <- sapply(ks, FUN=function(k) {
+	  cluster.stats(dist2, kmeans(dist1, centers=k, nstart=10)$cluster, kmeans(dist2, centers=k, nstart=10)$cluster)$corrected.rand
+	  
+	})
+	plot(ks, WSS, type="b", main="Corrected RAND index for kmeans clustering", xlab="Number of clusters", ylab="Index")
+}
 
 dev.off()
