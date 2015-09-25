@@ -1,9 +1,10 @@
 package main;
 
-import java.lang.*;
-import classes.*;
-import java.io.*;
-import java.util.*;
+import java.io.IOException;
+import java.util.Collections;
+import classes.Table;
+import classes.Chain;
+import classes.Graph;
 
 public class Main
 {
@@ -16,7 +17,7 @@ public class Main
     	t.ReadSampleTable();
     	//t.BetaWrite("generated/beta_test1.txt");
     	//System.out.println(t.BetaNum);
-    	Utilities.SortByAntigen(t.BetaArray);
+    	Collections.sort(t.BetaArray, Chain.sortByAntigen());
     	t.BetaGraph = new Graph();
     	t.BetaGraph.GraphFill(t.BetaArray, 0);
     	t.BetaGraph.PrintHeatMap("generated/results/beta_graph_real.txt");

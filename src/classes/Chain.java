@@ -1,7 +1,8 @@
 package classes;
 
-import java.lang.*;
-import java.io.*;
+import java.io.IOException;
+import java.io.BufferedWriter;
+import java.util.Comparator;
 
 public class Chain
 {
@@ -111,6 +112,45 @@ public class Chain
 		target.DRegName 	= new String(this.DRegName);
 		target.CDR3 		= new String(this.CDR3);
 		target.Antigen 		= new String(this.Antigen);
+	}
+	
+	public static Comparator<Chain> sortByCDR()
+	{
+		return new ByCDR();
+	}
+	
+	private static class ByCDR implements Comparator<Chain>
+	{
+		public int compare(Chain a, Chain b)
+		{
+			return a.CDR3.compareTo(b.CDR3);
+		}
+	}
+	
+	public static Comparator<Chain> sortById()
+	{
+		return new ById();
+	}
+	
+	private static class ById implements Comparator<Chain>
+	{
+		public int compare(Chain a, Chain b)
+		{
+			return a.Number - b.Number;
+		}
+	}
+	
+	public static Comparator<Chain> sortByAntigen()
+	{
+		return new ByAntigen();
+	}
+	
+	private static class ByAntigen implements Comparator<Chain>
+	{
+		public int compare(Chain a, Chain b)
+		{
+			return a.Antigen.compareTo(b.Antigen);
+		}
 	}
 	
 	public String getV()

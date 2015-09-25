@@ -1,8 +1,9 @@
 package classes;
 
-import java.lang.*;
-import java.util.*;
-import java.io.*;
+import java.util.Vector;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.FileWriter;
 
 public class Graph
 {
@@ -26,6 +27,9 @@ public class Graph
 						break;
 					case 2: 
 						this.HeatMap(Array);
+						break;
+					case 3:
+						this.UpgradedHeatMap(Array);
 						break;
 				}
 			}
@@ -97,6 +101,20 @@ public class Graph
 				int maxlen = Math.max(CDR3_i.length(), CDR3_j.length());
 				int minlen = Math.min(CDR3_i.length(), CDR3_j.length());
 				Data[i][j] = (int)(1000.0*((double)dist/maxlen+(double)dist/minlen));
+				Data[j][i] = Data[i][j];
+			}
+		}
+	}
+	
+	private void UpgradedHeatMap(Vector<Chain> Array)
+	{
+		for (int i = 0; i < Size; i++)
+		{
+			for (int j = i; j < Size; j++)
+			{
+				String CDR3_i = Array.get(i).CDR3;
+				String CDR3_j = Array.get(j).CDR3;
+				Data[i][j] = (int)Utilities.strDistanceUpgraded(CDR3_i, CDR3_j, 1.0, 1.0, 1.0);
 				Data[j][i] = Data[i][j];
 			}
 		}

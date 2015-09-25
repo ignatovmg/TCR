@@ -1,8 +1,6 @@
 package classes;
 
-import java.lang.*;
-import java.io.*;
-import java.util.*;
+import java.util.Vector;
 
 public class Claster
 {

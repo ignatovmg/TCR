@@ -1,8 +1,12 @@
 package classes;
 
-import java.lang.*;
-import java.util.*;
-import java.io.*;
+import java.util.Vector;
+import java.util.Collections;
+import java.io.BufferedWriter;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.FileWriter;
+import java.io.FileReader;
 
 public class Table
 {
@@ -139,6 +143,22 @@ public class Table
 						i++;
 					}
 				}
+		}
+		if (AlphaNum != 0)
+		{
+			Collections.sort(AlphaArray, Chain.sortByCDR());
+			for (int j = 0; j < AlphaArray.size()-1; j++)
+				if (Chain.sortByCDR().compare(AlphaArray.get(j), AlphaArray.get(j+1)) == 0)
+					AlphaArray.remove(j--);
+			Collections.sort(AlphaArray, Chain.sortById());
+		}
+		if (BetaNum != 0)
+		{
+			Collections.sort(BetaArray, Chain.sortByCDR());
+			for (int j = 0; j < BetaArray.size()-1; j++)
+				if (Chain.sortByCDR().compare(BetaArray.get(j), BetaArray.get(j+1)) == 0)
+					BetaArray.remove(j--);
+			Collections.sort(BetaArray, Chain.sortById());
 		}
 	}
 	
